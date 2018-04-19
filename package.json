@@ -1,0 +1,21 @@
+{
+  "name": "live-file-share-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-ws": "^3.0.0",
+    "lodash": "^4.17.4",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.4.5",
+    "socket.io": "^2.0.4",
+    "ws-events": "^1.0.0"
+  }
+}
