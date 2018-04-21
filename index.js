@@ -10,7 +10,7 @@ io.on("connection", socket => {
     webSockets[id] = { clients: {}, socket, sharedFiles: {} };
   });
   socket.on("host:addFiles", ({ id, sharedFiles }) => {
-    const newSharedFiles = { ...sharedFiles };
+    const newSharedFiles = sharedFiles;
     webSockets[id].sharedFiles = newSharedFiles;
     _.forEach(webSockets[id].clients, clientSocket => {
       clientSocket.emit("client:sendFileList", { id, files: newSharedFiles });
@@ -21,9 +21,9 @@ io.on("connection", socket => {
     delete webSockets[id].sharedFiles[fileId];
     delete files[fileId];
     _.forEach(webSockets[id].clients, clientSocket => {
-      clientSocket.emit("client:sendFileList", {
+      clientSocket.emit("client:removeFile", {
         id,
-        files: webSockets[id].sharedFiles
+        fileId
       });
     });
   });
@@ -31,7 +31,7 @@ io.on("connection", socket => {
   socket.on("client:subscribe", ({ id, clientId }) => {
     if (webSockets[id]) {
       webSockets[id].clients[clientId] = socket;
-      socket.emit("client:sendFileList", {
+      socket.emit("client:subscribe", {
         id,
         files: webSockets[id].sharedFiles
       });
@@ -87,5 +87,5 @@ io.on("connection", socket => {
   });
 });
 http.listen(5000, function() {
-  console.log("listening on *:3000");
+  console.log("listening on *:5000");
 });
